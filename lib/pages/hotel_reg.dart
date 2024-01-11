@@ -98,7 +98,7 @@ class RegHotel extends StatelessWidget {
                     TextButton(onPressed: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(
                         builder: (context) {
-                          return const HoteLogin();
+                          return  HoteLogin();
                         }
                       ));
                     }, child: const Text(
