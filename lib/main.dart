@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_hubb/pages/bottom_navigation.dart';
-import 'package:hotel_hubb/pages/home_page.dart';
+
 
 
 void main() {
