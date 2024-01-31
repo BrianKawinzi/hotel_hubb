@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_hubb/pages/home_page.dart';
-import 'package:hotel_hubb/pages/intro_page.dart';
+
 
 void main() {
   runApp(const MyApp());
