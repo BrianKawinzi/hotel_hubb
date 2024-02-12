@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "488028831633",
+    "project_id": "hotelhubb-5a7eb",
+    "storage_bucket": "hotelhubb-5a7eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488028831633:android:c5e49d26d1a3f40f29e430",
+        "android_client_info": {
+          "package_name": "com.example.hotel_hubb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiEFS1Rm2XY3bEy2xYlE02Mw7wKvSu7p0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

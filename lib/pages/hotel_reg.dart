@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:hotel_hubb/components/my_button.dart';
 import 'package:hotel_hubb/components/normal_tf.dart';
 import 'package:hotel_hubb/components/password_tf.dart';
 import 'package:hotel_hubb/pages/hotel_log.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class RegHotel extends StatelessWidget {
@@ -14,8 +18,45 @@ class RegHotel extends StatelessWidget {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  //firebase Authentication instance
+  final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+
   //register method
-  void register() {}
+  void register(BuildContext context) async {
+  try {
+    final newUser = await _auth.createUserWithEmailAndPassword(
+      email: emailController.text, 
+      password: passwordController.text,
+    );
+
+    // Check if newUser and newUser.user are not null before accessing properties
+    if (newUser != null && newUser.user != null) {
+      // Save hotel name to Firestore
+      await _firestore.collection('hotels').doc(newUser.user!.uid).set({
+        'hotelName': hotelnameController.text,
+      });
+
+      // Navigate to the login screen
+      Navigator.of(context).pushNamed('/login');
+    } else {
+      // Handle the case where newUser or newUser.user is null
+      print('Error: newUser or newUser.user is null');
+    }
+  } catch (e) {
+    if (e is FirebaseAuthException) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('Registration Error'),
+          );
+        },
+      );
+    }
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +120,7 @@ class RegHotel extends StatelessWidget {
 
                 //register now button
                 MyButton(
-                  onTap: register, 
+                  onTap: () => register(context), 
                   buttonText: "Register Now"
                 ),
 

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -34,14 +35,16 @@ class NavigationDrawerWidget extends StatelessWidget {
                 ],
               ),
             ),
-            buildDrawerItem("Home", Icons.home),
-            buildDrawerItem("Suggestions", Icons.lightbulb),
-            buildDrawerItem("Contact Us", Icons.phone),
-            buildDrawerItem("About", Icons.info),
-            buildDrawerItem("Settings", Icons.settings),
-            buildDrawerItem("Registration", Icons.person_add),
+            buildDrawerItem("Home", Icons.home, () {}),
+            buildDrawerItem("Suggestions", Icons.lightbulb, () {}),
+            buildDrawerItem("Contact Us", Icons.phone, () {}),
+            buildDrawerItem("About", Icons.info, () {}),
+            buildDrawerItem("Settings", Icons.settings, () {}),
+            buildDrawerItem("Registration", Icons.person_add, () {}),
             const Divider(color: Colors.white),
-            buildDrawerItem("Logout", Icons.logout),
+            buildDrawerItem("Logout", Icons.logout, () {
+              _handleLogout(context);
+            }),
             
           ],
         ),
@@ -49,7 +52,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     );
   }
 
-  ListTile buildDrawerItem(String title, IconData icon) {
+  ListTile buildDrawerItem(String title, IconData icon, VoidCallback onTap) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       title: Text(
@@ -62,11 +65,17 @@ class NavigationDrawerWidget extends StatelessWidget {
         icon,
         color: Colors.white,
       ),
-      onTap: () {
-        //Handle navigation to the coresponding age here
-       
-        //implement navigation logic
-      },
+      onTap: onTap,
     );
+  }
+
+  //logout method
+  void _handleLogout(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacementNamed('/login');
+    } catch (e) {
+      print('Error during logout: $e');
+    }
   }
 }
